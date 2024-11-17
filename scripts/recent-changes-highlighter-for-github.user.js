@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Recent Changes Highlighter for GitHub
 // @namespace    https://github.com/Colin23/userscripts
-// @version      1.1.0
+// @version      1.1.1
 // @description  This user script changes the font color of files/folders in GitHub repositories to highlight recent changes.
 // @author       Colin Mörbe
 // @match        https://github.com/*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=github.com
 // @grant        none
-// @updateURL    https://github.com/Colin23/userscripts/blob/main/scripts/recent-changes-highlighter-for-github.user.js
-// @downloadURL  https://github.com/Colin23/userscripts/blob/main/scripts/recent-changes-highlighter-for-github.user.js
+// @updateURL    https://github.com/Colin23/userscripts/raw/refs/heads/main/scripts/recent-changes-highlighter-for-github.user.js
+// @downloadURL  https://github.com/Colin23/userscripts/raw/refs/heads/main/scripts/recent-changes-highlighter-for-github.user.js
 // @license      MIT
 // ==/UserScript==
 
