@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Recent Changes Highlighter for GitHub
 // @namespace    https://github.com/Colin23/userscripts
-// @version      1.2.1
+// @version      1.3.1
 // @description  This user script changes the font color of files/folders in GitHub repositories to highlight recent changes.
 // @author       Colin Mörbe
 // @match        https://github.com/*/*
@@ -18,12 +18,12 @@
     /**
      * Checks if the commit date is more recent than the age the method should check against.
      *
-     * @param dateString The commit date
-     * @param ageInMonths The age in months that should be checked against
+     * @param datetime {string} The commit date
+     * @param ageInMonths {number} The age in months that should be checked against
      * @returns {boolean} Returns true if the commit date is more recent than the date to check against, returns false otherwise
      */
-    function isRecent(dateString, ageInMonths) {
-        const commitDate = new Date(dateString);
+    function isRecent(datetime, ageInMonths) {
+        const commitDate = new Date(datetime);
         const now = new Date();
         const ageToCalculateAgainst = new Date();
         // This is safe to use.
@@ -36,8 +36,8 @@
     /**
      * Changes the font color, depending on the commit age.
      *
-     * @param datetime The commit date
-     * @param element The HTML element
+     * @param datetime {string} The commit date
+     * @param element {HTMLElement} The HTML element
      */
     function changeFontColor(datetime, element) {
         if (isRecent(datetime, 1)) {
@@ -59,9 +59,9 @@
         if (!commitDateElements) {
             return;
         }
-        commitDateElements.forEach(element => {
-            const datetime = element.getAttribute("datetime");
-            changeFontColor(datetime, element);
+        commitDateElements.forEach(commitDateElement => {
+            const datetime = commitDateElement.getAttribute("datetime");
+            changeFontColor(datetime, commitDateElement);
         });
 
         // Select the time element for the latest commit date
@@ -75,7 +75,8 @@
         changeFontColor(datetime, latestCommitDateElement);
     }
 
-    // Wait for the DOM to load before running the script
+    // This ensures the DOM is loaded, and the querySelector for the 'latest-commit-details' works.
+    // Without it, either null or undefined is thrown.
     document.addEventListener("DOMContentLoaded", () => {
         highlightRecentChanges();
     });
