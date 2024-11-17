@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Recent Changes Highlighter for GitHub
 // @namespace    https://github.com/Colin23/userscripts
-// @version      1.1.1
+// @version      1.2.1
 // @description  This user script changes the font color of files/folders in GitHub repositories to highlight recent changes.
 // @author       Colin Mörbe
 // @match        https://github.com/*/*
@@ -34,32 +34,51 @@
     }
 
     /**
-     * Extracts the commit date, passes is into the {@link isRecent} method
-     * and changes the font color of the commit date depending on the return of the {@link isRecent} method.
+     * Changes the font color, depending on the commit age.
+     *
+     * @param datetime The commit date
+     * @param element The HTML element
+     */
+    function changeFontColor(datetime, element) {
+        if (isRecent(datetime, 1)) {
+            element.style.color = "green";
+            element.style.fontWeight = "bold";
+        } else if (isRecent(datetime, 3)) {
+            element.style.color = "yellow";
+        } else if (isRecent(datetime, 6)) {
+            element.style.color = "red";
+        }
+    }
+
+    /**
+     * Extracts the commit dates and calls the {@link changeFontColor} method.
      */
     function highlightRecentChanges() {
         // Select all commit age elements → This works for directories and files.
-        const ageElements = document.querySelectorAll(".react-directory-commit-age relative-time");
-
-        ageElements.forEach(element => {
+        const commitDateElements = document.querySelectorAll(".react-directory-commit-age relative-time");
+        if (!commitDateElements) {
+            return;
+        }
+        commitDateElements.forEach(element => {
             const datetime = element.getAttribute("datetime");
-            if (!datetime) {
-                return;
-            }
-            if (isRecent(datetime, 1)) {
-                // If the change is younger than one month, make it red
-                element.style.color = "green";
-                element.style.fontWeight = "bold";
-            } else if (isRecent(datetime, 3)) {
-                element.style.color = "yellow";
-            } else if (isRecent(datetime, 6)) {
-                element.style.color = "red";
-            }
+            changeFontColor(datetime, element);
         });
+
+        // Select the time element for the latest commit date
+        const latestCommitDateElement = document.querySelector(
+            'div[data-testid="latest-commit-details"] relative-time'
+        );
+        if (!latestCommitDateElement) {
+            return;
+        }
+        const datetime = latestCommitDateElement.getAttribute("datetime");
+        changeFontColor(datetime, latestCommitDateElement);
     }
 
-    // Run the script initially
-    highlightRecentChanges();
+    // Wait for the DOM to load before running the script
+    document.addEventListener("DOMContentLoaded", () => {
+        highlightRecentChanges();
+    });
 
     // Reapply the highlighting when the DOM updates (useful for navigation on GitHub)
     const observer = new MutationObserver(highlightRecentChanges);
