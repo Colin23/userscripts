@@ -7,8 +7,8 @@
 // @match        https://github.com/*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=github.com
 // @grant        none
-// @updateURL    https://github.com/Colin23/userscripts/master/script1.user.js
-// @downloadURL  https://github.com/Colin23/userscripts/master/script1.user.js
+// @updateURL    https://github.com/Colin23/userscripts/blob/main/scripts/recent-changes-highlighter-for-github.user.js
+// @downloadURL  https://github.com/Colin23/userscripts/blob/main/scripts/recent-changes-highlighter-for-github.user.js
 // @license      MIT
 // ==/UserScript==
 
