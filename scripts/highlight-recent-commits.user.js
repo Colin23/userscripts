@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Recent Changes Highlighter for GitHub
 // @namespace    https://github.com/Colin23/userscripts
-// @version      1.3.2
+// @version      1.3.3
 // @description  This user script changes the font color of recent commits in GitHub repositories.
 // @author       Colin Mörbe
 // @match        https://github.com/*/*
@@ -46,6 +46,8 @@
         } else if (isRecent(datetime, 3)) {
             element.style.color = "yellow";
         } else if (isRecent(datetime, 6)) {
+            element.style.color = "darkorange";
+        } else {
             element.style.color = "red";
         }
     }
