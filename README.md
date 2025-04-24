@@ -1,2 +1,2 @@
-# userscripts
-Ths repository contains various user scripts for UI customizations
+# Userscripts
+Various user scripts for UI customizations
