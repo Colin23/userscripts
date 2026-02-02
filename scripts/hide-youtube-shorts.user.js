@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hide YouTube Shorts
 // @namespace    https://github.com/Colin23/userscripts
-// @version      1.1.1
+// @version      1.1.2
 // @description  This user script removes all traces of YouTube Shorts videos across YouTube (including homepage shelves, subscription feed headers, etc.)
 // @author       Colin Mörbe
 // @match        *://www.youtube.com/*
@@ -57,7 +57,9 @@
 
         root.querySelectorAll("#title-text, #title-container").forEach(titleElement => {
             if (containsShortsText(titleElement)) {
-                const shelf = titleElement.closest("ytd-rich-shelf-renderer, ytd-rich-section-renderer, ytd-reel-shelf-renderer");
+                const shelf = titleElement.closest(
+                    "ytd-rich-shelf-renderer, ytd-rich-section-renderer, ytd-reel-shelf-renderer"
+                );
                 if (shelf) shelf.remove();
             }
         });
